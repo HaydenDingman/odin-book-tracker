@@ -2,9 +2,9 @@ const myLibrary = [];
 
 function Book(title, author, pages, isRead) {
     this.title = title,
-    this.author= author,
-    this.pages = pages,
-    this.isRead = isRead
+        this.author = author,
+        this.pages = pages,
+        this.isRead = isRead
 }
 
 function addBookToLibrary(title, author, pages, isRead) {
@@ -24,14 +24,36 @@ function displayLibraryTable() {
     for (const book of myLibrary) {
         const newRow = document.createElement("tr");
         for (const prop in book) {
-            const newCell = document.createElement("td");
-            newCell.textContent = `${book[prop]}`;
+            const newCell = createCell(book, prop);
             newRow.appendChild(newCell);
         }
         libraryTable.appendChild(newRow);
     }
-
     tableTarget.appendChild(libraryTable);
+}
+
+function createCell(book, prop) {
+    const newCell = document.createElement("td");
+
+    if (typeof book[prop] === "boolean") {
+        createCheckbox(book, prop, newCell);
+    } else {
+        newCell.textContent = `${book[prop]}`;
+    }
+    return newCell;
+}
+
+function createCheckbox(book, prop, newCell) {
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.disabled = true;
+    if (book[prop] === true) {
+        checkbox.class = "read-box";
+        checkbox.checked = true;
+    } else {
+        checkbox.class = "unread-box";
+    }
+    newCell.appendChild(checkbox);
 }
 
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 294, true);

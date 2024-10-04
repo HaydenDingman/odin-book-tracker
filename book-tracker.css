@@ -12,6 +12,31 @@
 
 }
 
+body {
+    background-color: lightgoldenrodyellow;
+}
+
 .page-title {
+    font-size:2rem;
+    
+    padding: 10px 20px;
+
+}
+
+table {
+    background-color: #fff;
+    border:1px solid black;
+    border-collapse: collapse;
+}
+
+th {
     font-size:1.5rem;
+    text-align: left;
+    border: 1px solid black;
+    padding:10px 20px;
+}
+
+td {
+    border: 1px solid black;
+    padding: 10px 20px;
 }
