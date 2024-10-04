@@ -9,22 +9,41 @@
 
 :root {
     font-size:16px;
+    font-family: "cabin", sans-serif;
 
 }
 
 body {
-    background-color: lightgoldenrodyellow;
+    background-color: #415a77;
+}
+
+header {
+    display:flex;
+    padding: 40px;
+    color: #e0e1dd;
+}
+
+header svg {
+    width: 3rem;
 }
 
 .page-title {
-    font-size:2rem;
-    
-    padding: 10px 20px;
+    font-size:3rem;
+    padding:0px 10px;
+}
 
+main {
+    padding:0 40px;
+}
+
+.library-header {
+    font-size:1.75rem;
+    color: #e0e1dd;
+    padding-bottom:10px;
 }
 
 table {
-    background-color: #fff;
+    background-color: #e0e1dd;
     border:1px solid black;
     border-collapse: collapse;
 }
