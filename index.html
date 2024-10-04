@@ -30,10 +30,12 @@
                 <label for="new-author">Author:</label><input type="text" id="new-author" name="author" required />
                 <label for="new-pages">Page Count:</label><input type="text" id="new-pages" name="pages" required />
 
-                <label for="new-read-status">Read:</label><input type="checkbox" id="new-read-status"
-                    name="read-or-unread" required />
+                <label for="new-read-status">Read:</label><select id="new-read-status" name="isRead" required>
+                    <option value="true">Yes</option>
+                    <option value="false">No</option>
+                </select>
 
-                <button id="add-book-button">Add Book</button>
+                <button id="add-book-button" type="submit">Add Book</button>
             </form>
         </div>
         <div class="library-container">

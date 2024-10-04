@@ -11,6 +11,7 @@ function addBookToLibrary(title, author, pages, isRead) {
     const newBook = new Book(title, author, pages, isRead);
     myLibrary.push(newBook);
     myLibrary.sort();
+    displayLibraryTable();
 }
 
 const libraryTable = document.createElement("table");
@@ -69,6 +70,19 @@ newBookButton.addEventListener("click", () => {
         newBookContainer.style.maxHeight = newBookContainer.scrollHeight + "px";
     }
 })
+
+const newBookForm = document.querySelector(".new-book-form");
+newBookForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    
+    let newTitle = document.getElementsByName("title").value;
+    let newAuthor = document.getElementsByName("author").value;
+    let newPages = document.getElementsByName("pages").value;
+    let newReadStatus = document.getElementsByName("isRead").value;
+
+    addBookToLibrary(newTitle, newAuthor, newPages, newReadStatus);
+    newBookForm.reset();
+});
 
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 294, true);
 addBookToLibrary("Consider Phlebas", "Iain M. Banks", 550, true);

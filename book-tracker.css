@@ -81,8 +81,15 @@ main {
     gap:1.5rem;
 }
 
-form input[type="text"] {
-    padding: 2px 5px;
+form input{
+    padding: 10px;
+    border-radius:5px;
+}
+
+form select {
+    padding:10px;
+    background-color: #fff;
+    border-radius: 5px;
 }
 
 .new-book-form label {
@@ -93,11 +100,6 @@ form input[type="text"] {
 .library-container {
     padding-top: 20px;
     padding-left: 80px;
-}
-
-#new-read-status {
-    justify-self:left;
-    width:1rem;
 }
 
 #add-book-button {
