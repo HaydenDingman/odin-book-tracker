@@ -58,6 +58,18 @@ function createCheckbox(book, prop, newCell) {
     newCell.appendChild(checkbox);
 }
 
+const newBookButton = document.querySelector(".new-book-button");
+const newBookContainer = document.querySelector(".new-book-container");
+
+newBookButton.addEventListener("click", () => {
+    console.log("click");
+    if (newBookContainer.style.maxHeight) {
+        newBookContainer.style.maxHeight = null;
+    } else {
+        newBookContainer.style.maxHeight = newBookContainer.scrollHeight + "px";
+    }
+})
+
 addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 294, true);
 addBookToLibrary("Consider Phlebas", "Iain M. Banks", 550, true);
 addBookToLibrary("The Devil By Name", "Keith Rosson", 400, false);

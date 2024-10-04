@@ -48,11 +48,6 @@ main {
     padding-left: 80px;
 }
 
-.new-book-button {
-    padding: 5px 10px;
-    border-radius:5px;
-}
-
 .library-header {
     font-size:1.75rem;
     color: var(--light-background);
@@ -60,14 +55,24 @@ main {
     padding-right:20px;
 }
 
+.new-book-button {
+    padding: 5px 10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
 .new-book-container {
-    padding:20px;
     background-color: var(--light-background);
     width:100vw;
+
+    max-height:0;
+
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
 }
 
 .new-book-form {
-    padding: 0px 80px;
+    padding: 20px 80px;
     width: 70vw;
 
     display: grid;
