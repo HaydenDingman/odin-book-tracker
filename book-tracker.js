@@ -39,6 +39,7 @@ function createCell(book, prop) {
         createCheckbox(book, prop, newCell);
     } else {
         newCell.textContent = `${book[prop]}`;
+        newCell.classList.add(`${prop}`)
     }
     return newCell;
 }
@@ -48,10 +49,10 @@ function createCheckbox(book, prop, newCell) {
     checkbox.type = "checkbox";
     checkbox.disabled = true;
     if (book[prop] === true) {
-        checkbox.class = "read-box";
+        checkbox.classList.add("read-box");
         checkbox.checked = true;
     } else {
-        checkbox.class = "unread-box";
+        checkbox.classList.add("unread-box");
     }
     newCell.appendChild(checkbox);
 }
