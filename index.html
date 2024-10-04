@@ -24,13 +24,16 @@
             <h2 class="library-header">Hayden's Library</h2>
             <button class="new-book-button">+</button>
         </div>
-        <div class="new-book-form">
-            <form action="">
+        <div class="new-book-container">
+            <form class="new-book-form" action="">
                 <label for="new-title">Title:</label><input type="text" id="new-title" name="title" required />
                 <label for="new-author">Author:</label><input type="text" id="new-author" name="author" required />
                 <label for="new-pages">Page Count:</label><input type="text" id="new-pages" name="pages" required />
-                <label for="new-read-status">Read:</label><input type="checkbox" id="new-read-status" name="read-or-unread" required />
-                <button>Add Book</button>
+
+                <label for="new-read-status">Read:</label><input type="checkbox" id="new-read-status"
+                    name="read-or-unread" required />
+
+                <button id="add-book-button">Add Book</button>
             </form>
         </div>
         <div class="library-container">
