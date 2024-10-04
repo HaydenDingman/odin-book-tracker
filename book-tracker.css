@@ -2,6 +2,7 @@
     margin:0;
     border:0;
     padding:0;
+    box-sizing: border-box;
 
     font-size:inherit;
     font-family:inherit;
@@ -33,29 +34,63 @@ header svg {
 }
 
 main {
-    padding:0 40px;
+    padding:0px 80px;
+}
+
+.library-ui {
+    display:grid;
+    grid-template-columns: max-content auto;
+    width: 20vw;
+    justify-content: start;
+    align-items: baseline;
+}
+
+.new-book-button {
+    padding: 5px 10px;
+    border-radius:5px;
 }
 
 .library-header {
     font-size:1.75rem;
     color: #e0e1dd;
-    padding-bottom:10px;
+    padding-bottom:20px;
+    padding-right:20px;
 }
 
 table {
-    background-color: #e0e1dd;
-    border:1px solid black;
+    background-color: #415a77;
     border-collapse: collapse;
+    /* border-spacing: 0px .5rem; */
+    width:70vw;
 }
 
 th {
-    font-size:1.5rem;
+    font-size: 1.5rem;
     text-align: left;
     border: 1px solid black;
     padding:10px 20px;
+    background-color: #e0e1dd;
+}
+
+tr {
+    background-color: #e0e1dd;   
+}
+
+tr:nth-child(even) {
+    background-color: #c4c4c4;
 }
 
 td {
     border: 1px solid black;
     padding: 10px 20px;
+    margin:10px;
+}
+
+.title {
+    font-weight: 600;
+    font-size: 1.125rem;
+}
+
+.isRead {
+    text-align: center;
 }

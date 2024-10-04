@@ -45,6 +45,7 @@ function createCell(book, prop) {
 }
 
 function createCheckbox(book, prop, newCell) {
+    newCell.classList.add("isRead");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.disabled = true;
