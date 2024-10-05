@@ -12,37 +12,63 @@ function addBookToLibrary(title, author, pages, isRead) {
     const newBook = new Book(title, author, pages, isRead);
     myLibrary.push(newBook);
     myLibrary.sort();
-    displayLibraryTable();
+    displayLibrary();
 }
 
-const libraryTable = document.createElement("table");
-const tableTarget = document.querySelector(".library-container")
+let libraryTable = document.createElement("table");
+const content = document.querySelector(".library-container")
 
-function displayLibraryTable() {
-    libraryTable.innerHTML = "<thead><th><th>Title</th><th>Author</th><th>Pages</th><th class='isRead'>Read?</th></thead>";
-
+function displayLibrary() {
     myLibrary.sort((a, b) => (a.author.localeCompare(b.author)));
-    
     let itemNumber = 0;
-    for (const book of myLibrary) {
-        const newRow = document.createElement("tr");
-        newRow.dataset.index = itemNumber;
 
-        associateRemoveButton(newRow, itemNumber);
+    if (displayStyle === "list") {
 
-        for (const prop in book) {
-            const newCell = createCell(book, prop,itemNumber);
-            newRow.appendChild(newCell);
+        libraryTable.innerHTML = "<thead><th><th>Title</th><th>Author</th><th>Pages</th><th class='isRead'>Read?</th></thead>";
+
+        for (const book of myLibrary) {
+            const newRow = document.createElement("tr");
+            newRow.dataset.index = itemNumber;
+
+            const removeButtonCell = document.createElement("td");
+            removeButtonCell.classList.add("remove-column");
+
+            removeButtonCell.appendChild(associateRemoveButton(newRow, itemNumber));
+            newRow.appendChild(removeButtonCell);
+
+            for (const prop in book) {
+                const newCell = createCell(book, prop, itemNumber);
+                newRow.appendChild(newCell);
+            }
+            libraryTable.appendChild(newRow);
+            itemNumber++;
         }
-        libraryTable.appendChild(newRow);
-        itemNumber++;
+        content.appendChild(libraryTable);
     }
-    tableTarget.appendChild(libraryTable);
+
+    else if (displayStyle === "card") {
+        libraryTable.innerHTML = "";
+
+        for (const book of myLibrary) {
+            const newCard = document.createElement("div");
+            newCard.dataset.index = itemNumber;
+            newCard.classList.add("book-card");
+
+            for (const prop in book) {
+                const newGraf = document.createElement("p");
+                newGraf.textContent = `${book[prop]}`;
+                newGraf.classList.add(`${prop}`);
+                newCard.appendChild(newGraf);
+            }
+
+            content.appendChild(newCard);
+        }
+    }
+
+
 }
 
 function associateRemoveButton(newRow, itemNumber) {
-    const removeButtonCell = document.createElement("td");
-    removeButtonCell.classList.add("remove-column");
     const removeButton = document.createElement("button");
     removeButton.textContent = "x";
     removeButton.classList.add("remove-button");
@@ -50,11 +76,10 @@ function associateRemoveButton(newRow, itemNumber) {
     removeButton.addEventListener("click", (e) => {
         newRow.remove();
         myLibrary.splice(itemNumber, 1);
-        displayLibraryTable();
+        displayLibrary();
     })
 
-    removeButtonCell.appendChild(removeButton);
-    newRow.appendChild(removeButtonCell);
+    return removeButton;
 }
 
 function createCell(book, prop, itemNumber) {
@@ -109,7 +134,7 @@ newBookButton.addEventListener("click", () => {
 const newBookForm = document.querySelector(".new-book-form");
 newBookForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    
+
     let newTitle = document.getElementById("new-title").value;
     let newAuthor = document.getElementById("new-author").value;
     let newPages = document.getElementById("new-pages").value;
@@ -123,16 +148,21 @@ addBookToLibrary("The Hobbit", "J.R.R. Tolkien", 294, true);
 addBookToLibrary("Consider Phlebas", "Iain M. Banks", 550, true);
 addBookToLibrary("The Devil By Name", "Keith Rosson", 400, false);
 
-displayLibraryTable();
+displayLibrary();
 
 
 // CARD DISPLAY
 cardDisplayButton = document.querySelector("#card-display");
 cardDisplayButton.addEventListener("click", () => {
-    if(displayStyle === "list") {
+    content.innerHTML = "";
+
+    if (displayStyle === "list") {
         displayStyle = "card";
+        content.classList.add("card-grid");
     } else {
         displayStyle = "list";
+        content.classList.remove("card-grid");
     }
-    displayLibraryTable();
+    
+    displayLibrary();
 })
