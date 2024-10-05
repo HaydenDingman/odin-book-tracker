@@ -22,13 +22,23 @@
     <main>
         <div class="library-ui">
             <h2 class="library-header">Hayden's Library</h2>
-            <button class="new-book-button">+</button>
+            <div class="ui-buttons">
+                <button class="new-book-button">+</button>
+                <button id="card-display"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                    width="16px" height="16px">
+                    <path
+                        d="M120-520v-320h320v320H120Zm0 400v-320h320v320H120Zm400-400v-320h320v320H520Zm0 400v-320h320v320H520ZM200-600h160v-160H200v160Zm400 0h160v-160H600v160Zm0 400h160v-160H600v160Zm-400 0h160v-160H200v160Zm400-400Zm0 240Zm-240 0Zm0-240Z" />
+                </svg></button>
+            </div>
         </div>
         <div class="new-book-container">
             <form class="new-book-form" action="">
-                <label for="new-title">Title:</label><input type="text" id="new-title" name="title" placeholder="Ex/ The Next Great American Novel" required />
-                <label for="new-author">Author:</label><input type="text" id="new-author" name="author" placeholder="Ex/ John Smith" required />
-                <label for="new-pages">Page Count:</label><input type="text" id="new-pages" name="pages" placeholder="Ex/ 666" required />
+                <label for="new-title">Title:</label><input type="text" id="new-title" name="title"
+                    placeholder="Ex/ The Next Great American Novel" required />
+                <label for="new-author">Author:</label><input type="text" id="new-author" name="author"
+                    placeholder="Ex/ John Smith" required />
+                <label for="new-pages">Page Count:</label><input type="text" id="new-pages" name="pages"
+                    placeholder="Ex/ 666" required />
 
                 <label for="new-read-status">Read:</label><select id="new-read-status" name="isRead" required>
                     <option value="" disabled selected hidden></option>
@@ -37,6 +47,7 @@
                 </select>
 
                 <button id="add-book-button" type="submit">Add Book</button>
+             
             </form>
         </div>
         <div class="library-container">

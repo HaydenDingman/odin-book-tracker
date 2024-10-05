@@ -1,4 +1,5 @@
 const myLibrary = [];
+displayStyle = "list";
 
 function Book(title, author, pages, isRead) {
     this.title = title,
@@ -123,3 +124,15 @@ addBookToLibrary("Consider Phlebas", "Iain M. Banks", 550, true);
 addBookToLibrary("The Devil By Name", "Keith Rosson", 400, false);
 
 displayLibraryTable();
+
+
+// CARD DISPLAY
+cardDisplayButton = document.querySelector("#card-display");
+cardDisplayButton.addEventListener("click", () => {
+    if(displayStyle === "list") {
+        displayStyle = "card";
+    } else {
+        displayStyle = "list";
+    }
+    displayLibraryTable();
+})

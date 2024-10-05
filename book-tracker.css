@@ -28,12 +28,13 @@ header {
 }
 
 header svg {
-    width: 3rem;
+    width: 4rem;
+    align-self:center;
 }
 
 .page-title {
     font-size: 3rem;
-    padding: 0px 10px;
+    padding: 0px 20px;
 }
 
 main {
@@ -42,7 +43,8 @@ main {
 
 .library-ui {
     display: grid;
-    grid-template-columns: max-content auto;
+    grid-template-columns: max-content 1fr;
+    gap: 20px;
     width: 20vw;
     justify-content: start;
     align-items: baseline;
@@ -53,13 +55,28 @@ main {
     font-size: 1.75rem;
     color: var(--light-background);
     padding-bottom: 20px;
-    padding-right: 20px;
+}
+
+.ui-buttons {
+    display:flex;
+    gap:20px;
+    font-size:1.2rem;
+    width:6vw;
 }
 
 .new-book-button {
+    flex:1;
     padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#card-display {
+    flex:1;
+    padding: 5px 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    
 }
 
 .new-book-container {
