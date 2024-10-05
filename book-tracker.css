@@ -149,10 +149,17 @@ th {
 }
 
 .remove-button {
-    background-color: var(--dark-background);
-    color: var(--light-background);
+    background-color: inherit;
     padding: .2rem .6rem;
     border-radius: 5px;
+}
+
+.remove-button:hover {
+    background: #fff;
+}
+
+.remove-button:active {
+    background: var(--dark-background);
 }
 
 tr {

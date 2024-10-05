@@ -18,21 +18,23 @@ const libraryTable = document.createElement("table");
 const tableTarget = document.querySelector(".library-container")
 
 function displayLibraryTable() {
-    libraryTable.innerHTML = "<thead><th><th>Title</th><th>Author</th><th>Pages</th><th>Read?</th></thead>";
+    libraryTable.innerHTML = "<thead><th><th>Title</th><th>Author</th><th>Pages</th><th class='isRead'>Read?</th></thead>";
 
     myLibrary.sort((a, b) => (a.author.localeCompare(b.author)));
-
+    
+    let itemNumber = 0;
     for (const book of myLibrary) {
-        let itemNumber = 0;
         const newRow = document.createElement("tr");
+        newRow.dataset.index = itemNumber;
 
         associateRemoveButton(newRow, itemNumber);
 
         for (const prop in book) {
-            const newCell = createCell(book, prop);
+            const newCell = createCell(book, prop,itemNumber);
             newRow.appendChild(newCell);
         }
         libraryTable.appendChild(newRow);
+        itemNumber++;
     }
     tableTarget.appendChild(libraryTable);
 }
@@ -43,15 +45,22 @@ function associateRemoveButton(newRow, itemNumber) {
     const removeButton = document.createElement("button");
     removeButton.textContent = "x";
     removeButton.classList.add("remove-button");
+
+    removeButton.addEventListener("click", (e) => {
+        newRow.remove();
+        myLibrary.splice(itemNumber, 1);
+        displayLibraryTable();
+    })
+
     removeButtonCell.appendChild(removeButton);
     newRow.appendChild(removeButtonCell);
 }
 
-function createCell(book, prop) {
+function createCell(book, prop, itemNumber) {
     const newCell = document.createElement("td");
 
     if (typeof book[prop] === "boolean") {
-        createCheckbox(book, prop, newCell);
+        createCheckbox(book, prop, newCell, itemNumber);
     } else {
         newCell.textContent = `${book[prop]}`;
         newCell.classList.add(`${prop}`)
@@ -59,16 +68,21 @@ function createCell(book, prop) {
     return newCell;
 }
 
-function createCheckbox(book, prop, newCell) {
+function createCheckbox(book, prop, newCell, itemNumber) {
     newCell.classList.add("isRead");
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
-    checkbox.disabled = true;
+    checkbox.addEventListener("change", () => {
+        if (book[prop] === true) {
+            book[prop] = false;
+        } else {
+            book[prop] = true;
+        }
+        console.log(myLibrary);
+    });
+    checkbox.classList.add("read-box");
     if (book[prop] === true) {
-        checkbox.classList.add("read-box");
         checkbox.checked = true;
-    } else {
-        checkbox.classList.add("unread-box");
     }
     newCell.appendChild(checkbox);
 }
@@ -78,7 +92,6 @@ const newBookContainer = document.querySelector(".new-book-container");
 const formFields = newBookContainer.getElementsByTagName("*"); // For disabling form fields
 
 newBookButton.addEventListener("click", () => {
-    console.log("click");
     if (newBookContainer.style.maxHeight) {
         newBookContainer.style.maxHeight = null;
         for (let i = 0; i < formFields.length; i++) {
