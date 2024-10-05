@@ -21,6 +21,7 @@ const content = document.querySelector(".library-container")
 function displayLibrary() {
     myLibrary.sort((a, b) => (a.author.localeCompare(b.author)));
     let itemNumber = 0;
+    content.innerHTML = "";
 
     if (displayStyle === "list") {
 
@@ -54,10 +55,28 @@ function displayLibrary() {
             newCard.dataset.index = itemNumber;
             newCard.classList.add("book-card");
 
+            newCard.appendChild(associateRemoveButton(newCard, itemNumber));
+
             for (const prop in book) {
+                if (prop != "title") {
+                    const propLabel = document.createElement("p");
+                    if (prop === "author") {
+                        propLabel.textContent = "By: ";
+                    } else if (prop === "pages") {
+                        propLabel.textContent = "Pages: ";
+                    } else if (prop === "isRead") {
+                        propLabel.textContent = "Read: ";
+                    }
+                    newCard.appendChild(propLabel);
+                }
+
                 const newGraf = document.createElement("p");
-                newGraf.textContent = `${book[prop]}`;
-                newGraf.classList.add(`${prop}`);
+                if (typeof book[prop] === "boolean") {
+                    newGraf.appendChild(createCheckbox(book, prop));
+                } else {
+                    newGraf.textContent = `${book[prop]}`;
+                    newGraf.classList.add(`${prop}`)
+                }
                 newCard.appendChild(newGraf);
             }
 
@@ -68,13 +87,12 @@ function displayLibrary() {
 
 }
 
-function associateRemoveButton(newRow, itemNumber) {
+function associateRemoveButton(toRemove, itemNumber) {
     const removeButton = document.createElement("button");
     removeButton.textContent = "x";
     removeButton.classList.add("remove-button");
 
     removeButton.addEventListener("click", (e) => {
-        newRow.remove();
         myLibrary.splice(itemNumber, 1);
         displayLibrary();
     })
@@ -86,7 +104,8 @@ function createCell(book, prop, itemNumber) {
     const newCell = document.createElement("td");
 
     if (typeof book[prop] === "boolean") {
-        createCheckbox(book, prop, newCell, itemNumber);
+        newCell.classList.add("isRead");
+        newCell.appendChild(createCheckbox(book, prop));
     } else {
         newCell.textContent = `${book[prop]}`;
         newCell.classList.add(`${prop}`)
@@ -94,8 +113,7 @@ function createCell(book, prop, itemNumber) {
     return newCell;
 }
 
-function createCheckbox(book, prop, newCell, itemNumber) {
-    newCell.classList.add("isRead");
+function createCheckbox(book, prop) {
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.addEventListener("change", () => {
@@ -110,7 +128,8 @@ function createCheckbox(book, prop, newCell, itemNumber) {
     if (book[prop] === true) {
         checkbox.checked = true;
     }
-    newCell.appendChild(checkbox);
+
+    return checkbox;
 }
 
 const newBookButton = document.querySelector(".new-book-button");
@@ -163,6 +182,6 @@ cardDisplayButton.addEventListener("click", () => {
         displayStyle = "list";
         content.classList.remove("card-grid");
     }
-    
+
     displayLibrary();
 })

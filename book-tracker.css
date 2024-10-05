@@ -48,7 +48,7 @@ main {
     width: 20vw;
     justify-content: start;
     align-items: baseline;
-    padding-left: 80px;
+    padding-left: 10vw;
 }
 
 .library-header {
@@ -90,7 +90,7 @@ main {
 }
 
 .new-book-form {
-    padding: 20px 80px;
+    padding: 20px 15vw;
     width: 70vw;
 
     display: grid;
@@ -121,25 +121,35 @@ form select {
 
 .library-container {
     padding-top: 20px;
-    padding-left: 80px;
+    padding-left: 10vw;
 }
 
 .card-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 20px;
+    width:80vw;
 }
 
 .book-card {
-    display:grid;
     background-color: var(--light-background);
     border-left: 10px solid #5f85b0;
     border-radius: 10px;
     padding: 20px;
+
+    display:grid;
+    grid-template-columns: min-content auto;
+    gap:10px;
 }
 
-.book-card p {
+.card-grid .title {
+    grid-column: 1 / -1;
+    font-size:1.5rem;
+}
 
+.card-grid .remove-button {
+    grid-column: 1 / -1;
+    justify-self: end;
 }
 
 
@@ -177,8 +187,9 @@ th {
 }
 
 .remove-column {
-    display: grid;
-    place-content: center;
+    display: flex;
+    align-items: center;
+    justify-content:center;
 
     margin: 0;
     padding: 10px 0px;
