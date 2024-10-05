@@ -21,70 +21,42 @@ const content = document.querySelector(".library-container")
 function displayLibrary() {
     myLibrary.sort((a, b) => (a.author.localeCompare(b.author)));
     let itemNumber = 0;
+
+    // Reset table
     content.innerHTML = "";
 
     if (displayStyle === "list") {
+        createTableView(itemNumber);
+    } else if (displayStyle === "card") {
+        createCardView(itemNumber);
+    }
+}
 
-        libraryTable.innerHTML = "<thead><th><th>Title</th><th>Author</th><th>Pages</th><th class='isRead'>Read?</th></thead>";
+function createTableView(itemNumber) {
+    libraryTable.innerHTML = "<thead><th><th>Title</th><th>Author</th><th>Pages</th><th class='isRead'>Read?</th></thead>";
 
-        for (const book of myLibrary) {
-            const newRow = document.createElement("tr");
-            newRow.dataset.index = itemNumber;
-
-            const removeButtonCell = document.createElement("td");
-            removeButtonCell.classList.add("remove-column");
-
-            removeButtonCell.appendChild(associateRemoveButton(newRow, itemNumber));
-            newRow.appendChild(removeButtonCell);
-
-            for (const prop in book) {
-                const newCell = createCell(book, prop, itemNumber);
-                newRow.appendChild(newCell);
-            }
-            libraryTable.appendChild(newRow);
-            itemNumber++;
-        }
-        content.appendChild(libraryTable);
+    for (const book of myLibrary) {
+        const newRow = createNewRow(itemNumber);
+        createRemoveButton(newRow, itemNumber);
+        itemNumber = addCells(book, itemNumber, newRow);
     }
 
-    else if (displayStyle === "card") {
-        libraryTable.innerHTML = "";
+    content.appendChild(libraryTable);
+    return itemNumber;
+}
 
-        for (const book of myLibrary) {
-            const newCard = document.createElement("div");
-            newCard.dataset.index = itemNumber;
-            newCard.classList.add("book-card");
+function createNewRow(itemNumber) {
+    const newRow = document.createElement("tr");
+    newRow.dataset.index = itemNumber;
+    return newRow;
+}
 
-            newCard.appendChild(associateRemoveButton(newCard, itemNumber));
+function createRemoveButton(newRow, itemNumber) {
+    const removeButtonCell = document.createElement("td");
+    removeButtonCell.classList.add("remove-column");
 
-            for (const prop in book) {
-                if (prop != "title") {
-                    const propLabel = document.createElement("p");
-                    if (prop === "author") {
-                        propLabel.textContent = "By: ";
-                    } else if (prop === "pages") {
-                        propLabel.textContent = "Pages: ";
-                    } else if (prop === "isRead") {
-                        propLabel.textContent = "Read: ";
-                    }
-                    newCard.appendChild(propLabel);
-                }
-
-                const newGraf = document.createElement("p");
-                if (typeof book[prop] === "boolean") {
-                    newGraf.appendChild(createCheckbox(book, prop));
-                } else {
-                    newGraf.textContent = `${book[prop]}`;
-                    newGraf.classList.add(`${prop}`)
-                }
-                newCard.appendChild(newGraf);
-            }
-
-            content.appendChild(newCard);
-        }
-    }
-
-
+    removeButtonCell.appendChild(associateRemoveButton(newRow, itemNumber));
+    newRow.appendChild(removeButtonCell);
 }
 
 function associateRemoveButton(toRemove, itemNumber) {
@@ -98,6 +70,16 @@ function associateRemoveButton(toRemove, itemNumber) {
     })
 
     return removeButton;
+}
+
+function addCells(book, itemNumber, newRow) {
+    for (const prop in book) {
+        const newCell = createCell(book, prop, itemNumber);
+        newRow.appendChild(newCell);
+    }
+    libraryTable.appendChild(newRow);
+    itemNumber++;
+    return itemNumber;
 }
 
 function createCell(book, prop, itemNumber) {
@@ -185,3 +167,45 @@ cardDisplayButton.addEventListener("click", () => {
 
     displayLibrary();
 })
+
+function createCardView(itemNumber) {
+    for (const book of myLibrary) {
+        const newCard = document.createElement("div");
+        newCard.dataset.index = itemNumber;
+        newCard.classList.add("book-card");
+
+        newCard.appendChild(associateRemoveButton(newCard, itemNumber));
+
+        for (const prop in book) {
+            addCardLabel(prop, newCard);
+            addCardContent(book, prop, newCard);
+        }
+
+        content.appendChild(newCard);
+    }
+}
+
+function addCardLabel(prop, newCard) {
+    if (prop != "title") {
+        const propLabel = document.createElement("p");
+        if (prop === "author") {
+            propLabel.textContent = "By: ";
+        } else if (prop === "pages") {
+            propLabel.textContent = "Pages: ";
+        } else if (prop === "isRead") {
+            propLabel.textContent = "Read: ";
+        }
+        newCard.appendChild(propLabel);
+    }
+}
+
+function addCardContent(book, prop, newCard) {
+    const newGraf = document.createElement("p");
+    if (typeof book[prop] === "boolean") {
+        newGraf.appendChild(createCheckbox(book, prop));
+    } else {
+        newGraf.textContent = `${book[prop]}`;
+        newGraf.classList.add(`${prop}`);
+    }
+    newCard.appendChild(newGraf);
+}
