@@ -104,7 +104,12 @@ form input {
     border-radius: 5px;
 }
 
+form input:user-invalid {
+    outline: 4px solid rgb(255, 156, 156);
+}
+
 form input::placeholder {
+    outline:none;
     font-style: italic;
 }
 
@@ -112,6 +117,14 @@ form select {
     padding: 10px;
     background-color: #fff;
     border-radius: 5px;
+}
+
+form select:focus {
+    outline: 4px solid var(--dark-background);
+}
+
+form input:focus {
+    outline: 4px solid var(--dark-background);
 }
 
 .new-book-form label {
